@@ -9,7 +9,7 @@ from src.flair.writer import predictionwriter
 
 def train(config, data_module, seg_module, out_dir):
     """
-    Trains a model using the provided data module and segmentation module.
+    Trains a model_pth using the provided data module and segmentation module.
     
     Parameters:
     config (dict): Configuration dictionary containing parameters for training.
@@ -64,7 +64,7 @@ def train(config, data_module, seg_module, out_dir):
         enable_progress_bar = config["enable_progress_bar"],
     )
 
-    ## Train model
+    ## Train model_pth
     trainer.fit(seg_module, datamodule=data_module)
 
     ## Check metrics on validation set

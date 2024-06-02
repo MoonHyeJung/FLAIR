@@ -1,16 +1,16 @@
 #### DATA PATHS
 paths:
-    out_folder : ''
-    out_model_name: ''
+    out_folder : '../output'
+    out_model_name: '../output/FLAIR-INC_test01.pth'
 
     ######## TRAIN NEEDED 
-    train_csv : '/csv_toy/flair-1-paths-toy-train_ag.csv'
-    val_csv   : '/csv_toy/flair-1-paths-toy-val_ag.csv'
+    train_csv : '../csv_toy/flair-1-paths-toy-train_ag.csv'
+    val_csv   : '../csv_toy/flair-1-paths-toy-val_ag.csv'
     ######## PREDICT (PATCH) NEEDED
-    test_csv : ''
-    ckpt_model_path: ""
+    test_csv : '../csv_full/flair-1-paths-test.csv'
+    ckpt_model_path: "../model_pth/FLAIR-INC_rgbi_15cl_resnet34-unet_weights.pth"
 
-    path_metadata_aerial: '../flair_aerial_metadata.json' 
+    path_metadata_aerial: '../flair_aerial_metadata.json'
 
 
 #### USAGE

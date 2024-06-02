@@ -53,8 +53,8 @@ def get_module(checkpoint: str | Path) -> Mapping:
     else:
         LOGGER.error('Error with checkpoint provided: either a .ckpt with a "state_dict" key or an OrderedDict pt/pth file')
 
-    if 'model.seg_model' in list(weights.keys())[0]:
-        weights = {k.partition('model.seg_model.')[2]: v for k, v in weights.items()} 
+    if 'model_pth.seg_model' in list(weights.keys())[0]:
+        weights = {k.partition('model_pth.seg_model.')[2]: v for k, v in weights.items()}
         weights = {k: v for k, v in weights.items() if k != ""}
 
     return weights

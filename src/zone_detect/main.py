@@ -77,8 +77,8 @@ def conf_log(config, resolution):
     |- number of classes: {config['n_classes']}
     |- normalization: {config['norma_task'][0]['norm_type']}
     |- output type: {config['output_type']}\n
-    |- model weights path: {config['model_weights']}
-    |- model arch: {config['model_name']}
+    |- model_pth weights path: {config['model_weights']}
+    |- model_pth arch: {config['model_name']}
     |- encoder: {config['encoder_name']}
     |- device: {"cuda" if config['use_gpu'] else "cpu"}
     |- batch size: {config['batch_size']}\n\n""")      
@@ -105,7 +105,7 @@ def prepare(config, device):
     ## log
     conf_log(config, resolution)
     STD_OUT_LOGGER.info(f"""    [x] sliced input raster to {len(sliced_dataframe)} squares...""")
-    ## loading model and weights
+    ## loading model_pth and weights
     model = load_model(checkpoint=config['model_weights'], 
                        n_classes=config['n_classes'], 
                        n_channels=len(config['bands']), 
@@ -114,7 +114,7 @@ def prepare(config, device):
             )
     model.eval()
     model = model.to(device)  
-    STD_OUT_LOGGER.info(f"""    [x] loaded model and weights...""")
+    STD_OUT_LOGGER.info(f"""    [x] loaded model_pth and weights...""")
 
     return sliced_dataframe, profile, resolution, model
     
@@ -137,7 +137,7 @@ def main():
     margin = config['margin']
     n_classes = config['n_classes']
 
-    # slicing and model gathering
+    # slicing and model_pth gathering
     sliced_dataframe, profile, resolution, model = prepare(config, device)
     
     # get dataset 

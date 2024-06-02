@@ -77,7 +77,7 @@ def get_segmentation_module(config,
     """
     assert stage in ['train', 'predict'], "stage must be either 'train' or 'predict'"
     
-    # Define model
+    # Define model_pth
     model = smp_unet_mtd(architecture = config['model_architecture'],
                          encoder = config['encoder_name'],
                          n_channels = len(config["channels"]), 

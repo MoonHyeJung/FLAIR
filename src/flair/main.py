@@ -76,7 +76,7 @@ def copy_csv_and_config(config, out_dir, args):
 
 def load_checkpoint(ckpt_file_path, seg_module, exit_on_fail=False):
     """
-    Load model weights from a checkpoint file.
+    Load model_pth weights from a checkpoint file.
 
     Parameters:
     ckpt_file_path (str): Path to the checkpoint file.
@@ -87,11 +87,11 @@ def load_checkpoint(ckpt_file_path, seg_module, exit_on_fail=False):
     if ckpt_file_path is not None and os.path.isfile(ckpt_file_path) and ckpt_file_path.endswith('.ckpt'):
         checkpoint = torch.load(ckpt_file_path, map_location="cpu")
         seg_module.load_state_dict(checkpoint["state_dict"], strict=False)
-        print('Loaded model weights from ckpt.')
+        print('Loaded model_pth weights from ckpt.')
     elif ckpt_file_path is not None and os.path.isfile(ckpt_file_path) and (ckpt_file_path.endswith('.pth') or ckpt_file_path.endswith('.pt')):
         checkpoint = torch.load(ckpt_file_path, map_location="cpu")
         seg_module.load_state_dict(checkpoint, strict=False)
-        print('Loaded model weights from pytorch file.')       
+        print('Loaded model_pth weights from pytorch file.')
     else: 
         print("Invalid checkpoint file path.")
         if exit_on_fail:
@@ -101,8 +101,8 @@ def load_checkpoint(ckpt_file_path, seg_module, exit_on_fail=False):
 
 def training_stage(config, data_module, out_dir):
     """
-    Conducts the training stage of the model: sets up the training environment, loads the model weights from a checkpoint if available,
-    trains the model, and logs the training information.
+    Conducts the training stage of the model_pth: sets up the training environment, loads the model_pth weights from a checkpoint if available,
+    trains the model_pth, and logs the training information.
 
     Parameters:
     config (dict): Configuration dictionary containing parameters for the task.
@@ -111,7 +111,7 @@ def training_stage(config, data_module, out_dir):
     out_dir (Path): Path object representing the output directory.
 
     Returns:
-    trained_state_dict (OrderedDict): The state dictionary of the trained model.
+    trained_state_dict (OrderedDict): The state dictionary of the trained model_pth.
     """
     start = datetime.datetime.now()
 
@@ -138,14 +138,14 @@ def training_stage(config, data_module, out_dir):
    
 def predict_stage(config, data_module, out_dir_predict, trained_state_dict=None):
     """
-    Conducts the prediction stage of the model: sets up the prediction environment, loads the model weights from the training stage or a checkpoint file,
+    Conducts the prediction stage of the model_pth: sets up the prediction environment, loads the model_pth weights from the training stage or a checkpoint file,
     and makes predictions.
 
     Parameters:
     config (dict): Configuration dictionary containing parameters for the task.
     data_module: Data module for training, validation, and testing.
     out_dir_predict (Path): Path object representing the output directory for predictions.
-    trained_state_dict (OrderedDict, optional): The state dictionary of the trained model. Defaults to None.
+    trained_state_dict (OrderedDict, optional): The state dictionary of the trained model_pth. Defaults to None.
     """
     seg_module = get_segmentation_module(config, stage='predict')
     if config['tasks']['train']:

@@ -1,6 +1,6 @@
 import numpy as np
 import rasterio
-from skimage import img_as_float
+from skimage.util import img_as_float
 
 import torch
 from torch.utils.data import Dataset
