@@ -127,8 +127,6 @@ venv.bak/
 
 *.log
 
-venv
-
 # mypy
 .mypy_cache/
 .dmypy.json
