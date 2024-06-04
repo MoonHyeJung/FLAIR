@@ -3,10 +3,10 @@
 
 # Reproducibility on FLAIR: a Country-Scale Land Cover Semantic Segmentation Dataset From Multi-Source Optical Imagery
 
-## Team: HyeJung Moon, ShinHye Lee, YeJun Han
-## Graduate School Of Public Policy and Information Technology
-## Seoul National University of Science and Technology
-## email: hyejung.moon@gmail.com, shinhye.lee@pawdly.com, yejun.han001224@gmail.com
+##### Team: HyeJung Moon, ShinHye Lee, YeJun Han
+##### Graduate School Of Public Policy and Information Technology
+##### Seoul National University of Science and Technology
+##### email: hyejung.moon@gmail.com, shinhye.lee@pawdly.com, yejun.han001224@gmail.com
 
 The FLAIR #1 dataset is sampled countrywide and is composed of over 20 billion annotated pixels, acquired over three years and different months (spatio-temporal domains). The dataset is available to download <a href="https://ignf.github.io/FLAIR/">here.</a> It consists of 512 x 512 patches with 13 (baselines) or 19 (full) semantic classes (see associated datapaper). Each patch has 5 channels (RVB-Infrared-Elevation). 
 
