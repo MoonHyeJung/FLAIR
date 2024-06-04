@@ -126,116 +126,18 @@ Table 4. Qualitative illustration
 ##### 4.4 Results beyond original paper
 Reproducibility means that 5 models, including 3 models released by NeurIPS as well as 2 models released by Flair, were reproduced. In particular, these five models are being continuously improved until May 30, 2024, so they have high potential for practical use as well as learning.
 
+### 5 Discussion
+The FLAIR dataset is limited to metropolitan France. Although France’s territory is quite diverse, featuring oceanic,continental, Mediterranean, and mountainous bioclimatic regions, it does not contain tropical or desert area. As anational agency, IGN’s focus is limited to France. However, similar efforts by other countries or agencies wouldincrease the diversity of available data and stimulate the design and evaluation of geographically robust methods.Releasing a large-scale, high-resolution land-cover dataset openly could raise potential concerns related to privacy,security, and possible misuse. Indeed, detailed information about private properties could be extracted, possibly aidingillegal activities. However, both aerial and satellite images are already publicly available, and we only provide visualinterpretations. Furthermore, high-risk areas such as military facilities and nuclear plants are explicitly excluded fromthe dataset. This is even more important in the case of South Korea, a country that is currently explicitly at war.However, applying such a model to South Korea, which has seen a surge in forest fires and floods due to the effectsof climate change, could help prevent and respond to natural disasters faster, especially since France is located at thesame latitude as South Korea, and the four seasons change at the same time. An unusual aspect of IGN’s study is that itcategorized France’s specialty as vineyards.
 
-## Lib usage 
+##### 5.1 What was easyIGN provides a toy set of pre-trained models, real-world Flair data, and training data on their official website, whichhas been continuously updated until recently (May 2024). Therefore, we were able to perform and test reproducibilityusing the toy set relatively quickly.
+##### 5.2 What was difficult
+List part of the reproduction study that took more time than you anticipated or you felt were difficult.Be careful to put your discussion in context. For example, don’t say "the maths was difficult to follow", say "the mathrequires advanced knowledge of calculus to follow".
 
-<br><br>
+##### 5.3 Future Task
+The data was 85 GB in size, and it took a long time to download and was frequently interrupted. I had to changehyperparameters and model and result file paths for each model, but it wasn’t explained, so it was difficult to verifyit manually. Also, it was difficult to modify the model name, architecture, encoder, batch size, etc. in the programsource every time I changed the model. Finally, the paper published by NeurIPS analyzed only three models, but thereare seven models available on the Flair website, and two of them are not executed with open source, which was verydisappointing.
 
-
-### Configuration for flair :page_facing_up:
-
-The pipeline is configured using a YAML file (`flair-1-config.yaml`). The configuration file includes sections for data paths, tasks, model configuration, hyperparameters and computational resources.
-
-`out_folder`: The path to the output folder where the results will be saved.<br>
-`out_model_name`: The name of the output model.<br>
-`train_csv`: Path to the CSV file containing paths to image-mask pairs for training.<br>
-`val_csv`: Path to the CSV file containing paths to image-mask pairs for validation.<br>
-`test_csv`: Path to the CSV file containing paths to image-mask pairs for testing.<br>
-`ckpt_model_path`: The path to the checkpoint file of the model for prediction if train is disabled.<br>
-
-`train`: If set to True, the model will be trained.<br>
-`train_load_ckpt`: Initialize model with given weights.<br><br>
-`predict`: If set to True, predictions will be made using the model.<br>
-`metrics`: If set to True, metrics will be calculated.<br>
-`delete_preds`: Remove prediction files after metrics calculation.<br><br>
-
-`model_architecture`: The architecture of the model to be used (e.g., ‘unet’).<br>
-`encoder_name`: The name of the encoder to be used in the model (e.g., ‘resnet34’).<br>
-`use_augmentation`: If set to True, data augmentation will be applied during training.<br>
-
-`use_metadata`: If set to True, metadata will be used. If other than the FLAIR dataset, see structure to be provided.<br>
-`path_metadata_aerial`: The path to the aerial metadata JSON file.<br><br>
-
-`channels`: The channels opened in your input images. Images are opened with rasterio which starts at 1 for the first channel.<br>
-`seed`: The seed for random number generation to ensure reproducibility.<br><br>
-
-`batch_size`: The batch size for training.<br>
-`learning_rate`: The learning rate for training.<br>
-`num_epochs`: The number of epochs for training.<br><br>
-
-`use_weights`: If set to True, class weights will be used during training.<br>
-`classes`: Dict of semantic classes with value in images as key and list [weight, classname] as value. See config file for an example.<br>
-
-`norm_type`: Normalization to be applied: scaling (linear interpolation in the range [0,1]), custom (center-reduced with provided means and standard deviantions), without.<br>
-`norm_means`: If custom, means for each input band.<br>
-`norm_stds`: If custom standard deviation for each input band.<br><br>
-
-`georeferencing_output`: If set to True, the output will be georeferenced.<br><br>
-
-`accelerator`: The type of accelerator to use (‘gpu’ or ‘cpu’).<br>
-`num_nodes`: The number of nodes to use for training.<br>
-`gpus_per_node`: The number of GPUs to use per node for training.<br>
-`strategy`: The strategy to use for distributed training (‘auto’,‘ddp’,...).<br>
-`num_workers`: The number of workers to use for data loading.<br><br>
-
-`cp_csv_and_conf_to_output`: Makes a copy of paths csv and config file to the output directory.<br>
-`enable_progress_bar`: If set to True, a progress bar will be displayed during training and inference.<br>
-`progress_rate`: The rate at which progress will be displayed.<br>
-
-<br><br>
-
-### Configuration for zone_detect :page_facing_up:
-
-The pipeline is configured using a YAML file (`flair-1-config-detect.yaml`).
-
-`output_path`: path to output result.<br>
-`output_name`: name of resulting raster.<br><br>
-
-`input_img_path` : path to georeferenced raster.<br>
-`bands` : bands to be used in your raster file.<br><br>
-
-`img_pixels_detection` : size in pixels of infered patches, default is 512.<br>
-`margin` : margin between patchs for overlapping detection. 128 by exemple means that every 128*resolution step, a patch center will be computed.<br>
-`output_type` : type of output, can be "class_prob" for integer between 0 and 255 representing the output of the model or "argmax" which will output only one band with the index of the class.<br>
-`n_classes` : number of classes.<br><br>
-
-`model_weights` : path to your model weights or checkpoint.<br>
-`batch_size` : size of batch in dataloader, default is 2.<br> 
-`use_gpu` : boolean, rather use gpu or cpu for inference, default is true.<br>
-`model_name` : name of the model in pytorch segmentation models, default is 'unet'.<br>
-`encoder_name` :  Name of the encoder from pytorch segmentation model, default is 'resnet34'.<br>
-`num_worker` : number of worker used by dataloader, value should not be set at a higher value than 2 for linux because paved detection can have concurrency issues compared with traditional detection and set to 0 for mac and windows (gdal implementation's problem).<br><br>
-
-`write_dataframe` : wether to write the dataframe of raster slicing to a file.<br><br>
-
-`norm_type`: Normalization to be applied: scaling (linear interpolation in the range [0,1]) or custom (center-reduced with provided means and standard deviantions).<br>
-`norm_means`: If custom, means for each input band.<br>
-`norm_stds`: If custom standard deviation for each input band.<br><br>
-
-<br><br>
-
-## Leaderboard
-
-| Model | mIoU 
------------- | ------------- 
-| baseline U-Net (ResNet34) | 0.5443±0.0014
-| baseline U-Net (ResNet34) + _metadata + augmentation_ | 0.5570±0.0027
-
-If you want to submit a new entry, you can open a new issue.
-<b> Results of the challenge will be reported soon! </b>
-
-The baseline U-Net with ResNet34 backbone obtains the following confusion matrix: 
-
-
-<p>
-  <img width="50%" src="images/flair-1_heatmap.png">
-  <br>
-  <em>Baseline confusion matrix of the test dataset normalized by rows.</em>
-</p>
-
-
-## Reference
-Please include a citation to the following article if you use the FLAIR #1 dataset:
+### References
+Garioud, A., Gonthier, N., Landrieu, L., De Wit, A., Valette, M., Poupée, M., & Giordano, S. (2024). FLAIR: aCountry-Scale Land Cover Semantic Segmentation Dataset From Multi-Source Optical Imagery. Advances in NeuralInformation Processing Systems, 36.
 
 ```bibtex
 @article{garioud2022flair1,
@@ -248,21 +150,3 @@ Please include a citation to the following article if you use the FLAIR #1 datas
 }
 ```
 
-## Acknowledgment
-This work was performed using HPC/AI resources from
-GENCI-IDRIS (Grant 2022-A0131013803).
-
-## Dataset license
-
-The "OPEN LICENCE 2.0/LICENCE OUVERTE" is a license created by the French government specifically for the purpose of facilitating the dissemination of open data by public administration. 
-If you are looking for an English version of this license, you can find it on the official GitHub page at the [official github page](https://github.com/etalab/licence-ouverte).
-
-As stated by the license :
-
-### Applicable legislation
-
-This licence is governed by French law.
-
-### Compatibility of this licence
-
-This licence has been designed to be compatible with any free licence that at least requires an acknowledgement of authorship, and specifically with the previous version of this licence as well as with the following licences: United Kingdom’s “Open Government Licence” (OGL), Creative Commons’ “Creative Commons Attribution” (CC-BY) and Open Knowledge Foundation’s “Open Data Commons Attribution” (ODC-BY).
