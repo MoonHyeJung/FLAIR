@@ -17,12 +17,29 @@ This reproducibility is a study on the French territory published in NeurIPS in 
 ### 2. Scope of reproducibility
 The paper to be reproduced is a study published by IGN that classified forests in France. IGN is the French National Institute of Geographical and Forest Information. IGN introduce the French Land cover from Aerospace ImageRy (FLAIR), an extensive dataset from IGN that provides a unique and rich resource for large-scale geospatial analysis. FLAIR contains high-resolution aerial imagery with a ground sample distance of 20 cm and over 20 billion individually labeled pixels for precise landcover classification. The dataset also integrates temporal and spectral data from optical satellite time series. FLAIR thus combines data with varying spatial, spectral, and temporal resolutions across over 817 km2 of acquisitions representing the full landscape diversity of France. This diversity makes FLAIR a valuable resource for the development and evaluation of novel methods for large-scale land-cover semantic segmentation and raises significant challenges in terms of computer vision, data fusion, and geospatial analysis. IGN also provides powerful uni- and multi-sensor baseline models that can be employed to assess algorithm’s performance and for downstream applications. Through its extent and the quality of its annotation, FLAIR aims to spur improvements in monitoring and understanding key anthropogenic development indicators such as urban growth, deforestation, and soil artificialization.
 
+### 3 Methodology
+##### 3.1 Model descriptions
+IGN propose a generic yet powerful multi-sensor architecture to serve as a baseline to evaluate the semantic segmentation
+performance of different approaches. IGN propose a network architecture named U-T&T(rgbie): U-net with Textural
+and Temporal information. As shown in Figure 1, our model consists of two networks: one operating on high-resolution
+images with four radiometric channels (red, green, blue, infrared) and one elevation channel, and one network operating
+on time series. Each network follows the state-of-the-art approach for their respective data-source.
+
 <figure>
   <img
-  src="images/flair-1_spatiotemporal.png"
-  alt="ortho image and train/test geographical repartition">
-  <figcaption>ORTHO HR® aerial image cover of France (left), train and test spatial domains of the dataset (middle) and acquisition months defining temporal domains (right).</figcaption>
+  src="[images/flair-1_spatiotemporal.png](https://github.com/MoonHyeJung/FLAIR/blob/main/images/model.png)">
+  <figcaption>Figure 1. The U-T&T model architecture</figcaption>
 </figure>
+
+
+The baseline was implemented with PyTorch Lightning. The code for U-Net branch is taken from the segmentation43 models-PyTorch library, and the U-TAE network is from its official repository. We use the default U-TAE parameters,
+except for larger widths for the encoder and decoder The network is optimized with stochastic gradient descent, a
+batch size of 10, and a learning rate of 0.001. IGN set the maximum number of epochs to 200 and used early stopping
+with 30 epochs. IGN trained the models and released a synthesis of four additional models on Flair’s official site, in
+addition to the three benchmarked in the paper (U-Net, FPN, and DeepLabV3). Our team will train all seven models
+recently released by Flair through May 20, 2024, and compare their performance to the original benchmarking. We
+used phyCham as our implementation environment, and we used two GPUs (NVIDIA GeForce GTX 1660 super) to
+speed up the execution.
 
 
 <br>
