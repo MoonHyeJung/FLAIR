@@ -37,7 +37,7 @@ The baseline was implemented with PyTorch Lightning. The code for U-Net branch i
 Our reproducibility introduces the French Land cover from Aerospace ImageRy (FLAIR), an extensive dataset from the French National Institute of Geographical and Forest Information (IGN) that provides a unique and rich resource for large-scale geospatial analysis. The FLAIR dataset consists of 77 762 patches represented in Figure 3. Each patch
 includes a high-resolution aerial image of 0.2 m, a yearly satellite image time series with a spatial resolution of 10 m, and pixel-precise elevation and land cover annotations at 0.2 m resolution. As shown in Figure 5, the acquisitions are taken from 916 unique areas distributed across 50 French spatial domains (départements), covering approximately 817 km2. Aerial images were captured under favorable weather conditions between April and November from 2018 to 2021. Each satellite time series corresponds to the entire year of acquisition of the matching aerial image. in Figure 2. 
 <p align="center">
-  <img width="70%" src="flair-1_spatiotemporal.png">
+  <img width="70%" src="images/flair-1_spatiotemporal.png">
   <br>
   <em>Figure 2. Satellite image of France (left), training and validation data (middle), and timeframe (right)</em>
 </p>
