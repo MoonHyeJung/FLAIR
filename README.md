@@ -76,21 +76,16 @@ FLAIR dataset is open at the moment.
 elevation)
 − model architecture : resnet34_unet (U-Net with a Resnet-34 encoder), deeplab, fpn, mit
 − target class nomenclature : 15cl (15 land cover classes)
-Among the models that classify French forests, the representative model is "rgbie_15cl_resnet34-unet". The
-"rgbie_15cl_resnet34-unet" model is a specialized classification model for French aerial images from the BD ORTHO®
-product, designed with specific spatial and radiometric specifications. It is optimized for input images normalized to
- 8-bit encoding per channel, with elevation information encoded in 8-bit format where each unit represents a 0.2-meter
- elevation change. The model was trained using 218,400 patches of 512x512 pixels from the FLAIR-INC dataset,
- incorporating 75 radiometric domains to ensure robustness against domain shifts due to acquisition time, spatial
- domains, and radiometric processing. However, it is tailored to BD ORTHO images, and performance may drop when
- applied to other high-resolution images without transfer learning. Land cover classes include 19 categories, but 4 classes
- (Mixed, Ligneous, Other, Clear cut) were deactivated during training, so they should not appear in the final output. The
- model is sensitive to spatial resolution changes and is optimized for 0.2 meters resolution, with no augmentation for
- scale changes.
- ##### 3.4 Computational requirements
- The specifications of the computer that performed the reproduction are as follows. - CPU: 13th Gen Intel(R) Core(TM)
- i9-13900 2.00 GHz - GPU: NVIDIA GeForce GTX 1660 super - Memory: 64GB - HDD: SSD - IDE: pyCharm -
- Python library: PyTorch (segmentation models)
+
+Among the models that classify French forests, the representative model is "rgbie_15cl_resnet34-unet". The "rgbie_15cl_resnet34-unet" model is a specialized classification model for French aerial images from the BD ORTHO® product, designed with specific spatial and radiometric specifications. It is optimized for input images normalized to  8-bit encoding per channel, with elevation information encoded in 8-bit format where each unit represents a 0.2-meter  elevation change. The model was trained using 218,400 patches of 512x512 pixels from the FLAIR-INC dataset, incorporating 75 radiometric domains to ensure robustness against domain shifts due to acquisition time, spatial domains, and radiometric processing. However, it is tailored to BD ORTHO images, and performance may drop when applied to other high-resolution images without transfer learning. Land cover classes include 19 categories, but 4 classes (Mixed, Ligneous, Other, Clear cut) were deactivated during training, so they should not appear in the final output. The model is sensitive to spatial resolution changes and is optimized for 0.2 meters resolution, with no augmentation for scale changes.
+ 
+##### 3.4 Computational requirements
+ The specifications of the computer that performed the reproduction are as follows. 
+ - CPU: 13th Gen Intel(R) Core(TM) i9-13900 2.00 GHz
+ - GPU: NVIDIA GeForce GTX 1660 super
+ - Memory: 64GB
+ - HDD: SSD - IDE: pyCharm
+ - Python library: PyTorch (segmentation models)
 
 <br>
 
