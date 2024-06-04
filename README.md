@@ -3,37 +3,10 @@
 
 # Reproducibility on FLAIR: a Country-Scale Land Cover Semantic Segmentation Dataset From Multi-Source Optical Imagery
 
-
-
-![Static Badge](https://img.shields.io/badge/Code%3A-lightgrey?color=lightgrey) [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/IGNF/FLAIR-1-AI-Challenge/blob/master/LICENSE) <a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a>
-<a href="https://pytorchlightning.ai/"><img alt="Lightning" src="https://img.shields.io/badge/-Lightning-792ee5?logo=pytorchlightning&logoColor=white"></a> &emsp; ![Static Badge](https://img.shields.io/badge/Dataset%3A-lightgrey?color=lightgrey) [![license](https://img.shields.io/badge/License-IO%202.0-green.svg)](https://github.com/etalab/licence-ouverte/blob/master/open-licence.md)
-
-
-
-
-Participate in obtaining more accurate maps for a more comprehensive description and a better understanding of our environment! Come push the limits of state-of-the-art semantic segmentation approaches on a large and challenging dataset. Get in touch at :email: flair@ign.fr
-
-
-
-![Alt bandeau FLAIR-IGN](images/flair_bandeau.jpg?raw=true)
-
-</div>
-
-<div style="border-width:1px; border-style:solid; border-color:#d2db8c; padding-left: 1em; padding-right: 1em; ">
-  
-<h2 style="margin-top:5px;">Links</h2>
-
-
-- **Datapaper :** https://arxiv.org/pdf/2211.12979.pdf
-
-- **Dataset links :** https://ignf.github.io/FLAIR/ or https://huggingface.co/datasets/IGNF/FLAIR
-
-- **Challenge page :**  https://codalab.lisn.upsaclay.fr/competitions/8769 [🛑 closed!]
-
-</div>
-
-
-## Context & Data
+## Team: HyeJung Moon, ShinHye Lee, YeJun Han
+## Graduate School Of Public Policy and Information Technology
+## Seoul National University of Science and Technology
+## email: hyejung.moon@gmail.com, shinhye.lee@pawdly.com, yejun.han001224@gmail.com
 
 The FLAIR #1 dataset is sampled countrywide and is composed of over 20 billion annotated pixels, acquired over three years and different months (spatio-temporal domains). The dataset is available to download <a href="https://ignf.github.io/FLAIR/">here.</a> It consists of 512 x 512 patches with 13 (baselines) or 19 (full) semantic classes (see associated datapaper). Each patch has 5 channels (RVB-Infrared-Elevation). 
 
