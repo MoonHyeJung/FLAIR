@@ -31,16 +31,33 @@ on time series. Each network follows the state-of-the-art approach for their res
 </p>
 
 The baseline was implemented with PyTorch Lightning. The code for U-Net branch is taken from the segmentation43 models-PyTorch library, and the U-TAE network is from its official repository. We use the default U-TAE parameters, except for larger widths for the encoder and decoder The network is optimized with stochastic gradient descent, a batch size of 10, and a learning rate of 0.001. IGN set the maximum number of epochs to 200 and used early stopping with 30 epochs. IGN trained the models and released a synthesis of four additional models on Flair’s official site, in addition to the three benchmarked in the paper (U-Net, FPN, and DeepLabV3). Our team will train all seven models recently released by Flair through May 20, 2024, and compare their performance to the original benchmarking. We used phyCham as our implementation environment, and we used two GPUs (NVIDIA GeForce GTX 1660 super) to speed up the execution.
+<be>
 
-
-<br>
-<br>
-
+##### 3.2 Datasets
+Our reproducibility introduces the French Land cover from Aerospace ImageRy (FLAIR), an extensive dataset from the French National Institute of Geographical and Forest Information (IGN) that provides a unique and rich resource for large-scale geospatial analysis. The FLAIR dataset consists of 77 762 patches represented in Figure 3. Each patch
+includes a high-resolution aerial image of 0.2 m, a yearly satellite image time series with a spatial resolution of 10 m, and pixel-precise elevation and land cover annotations at 0.2 m resolution. As shown in Figure 5, the acquisitions are taken from 916 unique areas distributed across 50 French spatial domains (départements), covering approximately 817 km2. Aerial images were captured under favorable weather conditions between April and November from 2018 to 2021. Each satellite time series corresponds to the entire year of acquisition of the matching aerial image. in Figure 2. 
 <p align="center">
-  <img width="70%" src="images/flair-1_patches.png">
+  <img width="70%" src="flair-1_spatiotemporal.png">
   <br>
-  <em>Example of input data (first three columns) and corresponding supervision masks (last column).</em>
+  <em>Figure 2. Satellite image of France (left), training and validation data (middle), and timeframe (right)</em>
 </p>
+
+Each pixel has been manually annotated by photo-interpretation of the 20 cm resolution aerial imagery, carried out by a team supervised by geography experts from the IGN. During the annotation process, we initially identified 18 classes. We group certain classes due to the rarity of certain classes, such as swimming pool, greenhouse, or snow, or potential ambiguity, as seen with ligneous and mixed vegetation. The resulting 12-class nomenclature leads to more statistically robust evaluation metrics. It consists of 512 x 512 patches with basic 15 as full semantic classes.
+<p align="center">
+  <img width="70%" src="images/class.png">
+  <br>
+  <em>Table 1. Prediction results by land-cover class</em>
+</p>
+
+Each patch has 5 channels including RVB-Infrared-Elevation. The dataset also integrates temporal and spectral data
+from optical satellite time series. FLAIR thus combines data with varying spatial, spectral, and temporal resolutions
+across over 817 km2 of acquisitions representing the full landscape diversity of France in Figure 2. The dataset is
+comprised of 77,762 patches. Each patch contains (i) a 512 × 512 aerial image at 0.2m resolution with red, green,
+blue (RGB) and near-infrared (NIR) values, (ii) a pixel-precise digital surface model providing an elevation for each
+pixel, (iii) semantic labels for each pixel, and (iv) an optical time series of spatial dimension 40 × 40 and 10m per pixel,
+centered on the aerial image.
+
+
 
 ```
 flair_data = {
