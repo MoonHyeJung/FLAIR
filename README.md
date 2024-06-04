@@ -24,22 +24,13 @@ performance of different approaches. IGN propose a network architecture named U-
 and Temporal information. As shown in Figure 1, our model consists of two networks: one operating on high-resolution
 images with four radiometric channels (red, green, blue, infrared) and one elevation channel, and one network operating
 on time series. Each network follows the state-of-the-art approach for their respective data-source.
+<p align="center">
+  <img width="70%" src="images/model.png">
+  <br>
+  <em>Figure 1. The U-T&T model architecture</em>
+</p>
 
-<figure>
-  <img
-  src="[images/flair-1_spatiotemporal.png](https://github.com/MoonHyeJung/FLAIR/blob/main/images/model.png)">
-  <figcaption>Figure 1. The U-T&T model architecture</figcaption>
-</figure>
-
-
-The baseline was implemented with PyTorch Lightning. The code for U-Net branch is taken from the segmentation43 models-PyTorch library, and the U-TAE network is from its official repository. We use the default U-TAE parameters,
-except for larger widths for the encoder and decoder The network is optimized with stochastic gradient descent, a
-batch size of 10, and a learning rate of 0.001. IGN set the maximum number of epochs to 200 and used early stopping
-with 30 epochs. IGN trained the models and released a synthesis of four additional models on Flair’s official site, in
-addition to the three benchmarked in the paper (U-Net, FPN, and DeepLabV3). Our team will train all seven models
-recently released by Flair through May 20, 2024, and compare their performance to the original benchmarking. We
-used phyCham as our implementation environment, and we used two GPUs (NVIDIA GeForce GTX 1660 super) to
-speed up the execution.
+The baseline was implemented with PyTorch Lightning. The code for U-Net branch is taken from the segmentation43 models-PyTorch library, and the U-TAE network is from its official repository. We use the default U-TAE parameters, except for larger widths for the encoder and decoder The network is optimized with stochastic gradient descent, a batch size of 10, and a learning rate of 0.001. IGN set the maximum number of epochs to 200 and used early stopping with 30 epochs. IGN trained the models and released a synthesis of four additional models on Flair’s official site, in addition to the three benchmarked in the paper (U-Net, FPN, and DeepLabV3). Our team will train all seven models recently released by Flair through May 20, 2024, and compare their performance to the original benchmarking. We used phyCham as our implementation environment, and we used two GPUs (NVIDIA GeForce GTX 1660 super) to speed up the execution.
 
 
 <br>
