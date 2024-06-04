@@ -107,7 +107,7 @@ Table 3 shows the results of running the best performing rgbi_15cl_resnet34-unet
 <p align="center">
   <img width="70%" src="images/class2.png">
   <br>
-  <em>Table 3. IGN and Reproducibility’s rgbi_15cl_resnet34-unet land classification predictions</em>
+  <em>Figure 4. IGN and Reproducibility’s rgbi_15cl_resnet34-unet land classification predictions</em>
 </p>
 
 The land was classified into 15 categories: building, pervious surface, impervious surface, bare soil, water, coniferous, deciduous, brushwood, vineyard, herbaceous vegetation, agricultural land, plowed land, swimming pool, snow, and greenhouse. The best prediction performance was for water, where both IGN and Reproducibiliy performed very well
