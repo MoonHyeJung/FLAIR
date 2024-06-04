@@ -56,32 +56,13 @@ comprised of 77,762 patches. Each patch contains (i) a 512 × 512 aerial image a
 blue (RGB) and near-infrared (NIR) values, (ii) a pixel-precise digital surface model providing an elevation for each
 pixel, (iii) semantic labels for each pixel, and (iv) an optical time series of spatial dimension 40 × 40 and 10m per pixel,
 centered on the aerial image.
+<p align="center">
+  <img width="70%" src="images/patch.png">
+  <br>
+  <em>Figure 3. Patches from FLAIR</em>
+</p>
 
 
-
-```
-flair_data = {
-1   : ['building','#db0e9a'] ,
-2   : ['pervious surface','#938e7b'],
-3   : ['impervious surface','#f80c00'],
-4   : ['bare soil','#a97101'],
-5   : ['water','#1553ae'],
-6   : ['coniferous','#194a26'],
-7   : ['deciduous','#46e483'],
-8   : ['brushwood','#f3a60d'],
-9   : ['vineyard','#660082'],
-10  : ['herbaceous vegetation','#55ff00'],
-11  : ['agricultural land','#fff30d'],
-12  : ['plowed land','#e4df7c'],
-13  : ['swimming_pool','#3de6eb'],
-14  : ['snow','#ffffff'],
-15  : ['clear cut','#8ab3a0'],
-16  : ['mixed','#6b714f'],
-17  : ['ligneous','#c5dc42'],
-18  : ['greenhouse','#9999ff'],
-19  : ['other','#000000'],
-}
-```
 
 
 <br>
