@@ -49,12 +49,7 @@ Each pixel has been manually annotated by photo-interpretation of the 20 cm reso
   <em>Table 1. Prediction results by land-cover class</em>
 </p>
 
-Each patch has 5 channels including RVB-Infrared-Elevation. The dataset also integrates temporal and spectral data
-from optical satellite time series. FLAIR thus combines data with varying spatial, spectral, and temporal resolutions
-across over 817 km2 of acquisitions representing the full landscape diversity of France in Figure 2. The dataset is
-comprised of 77,762 patches. Each patch contains (i) a 512 × 512 aerial image at 0.2m resolution with red, green,
-blue (RGB) and near-infrared (NIR) values, (ii) a pixel-precise digital surface model providing an elevation for each
-pixel, (iii) semantic labels for each pixel, and (iv) an optical time series of spatial dimension 40 × 40 and 10m per pixel,
+Each patch has 5 channels including RVB-Infrared-Elevation. The dataset also integrates temporal and spectral data from optical satellite time series. FLAIR thus combines data with varying spatial, spectral, and temporal resolutions across over 817 km2 of acquisitions representing the full landscape diversity of France in Figure 2. The dataset is comprised of 77,762 patches. Each patch contains (i) a 512 × 512 aerial image at 0.2m resolution with red, green, blue (RGB) and near-infrared (NIR) values, (ii) a pixel-precise digital surface model providing an elevation for each pixel, (iii) semantic labels for each pixel, and (iv) an optical time series of spatial dimension 40 × 40 and 10m per pixel,
 centered on the aerial image.
 <p align="center">
   <img width="70%" src="images/patch.png">
@@ -63,7 +58,39 @@ centered on the aerial image.
 </p>
 
 
+##### 3.3 Procedure and Hyperparameters
+The sequences of reproducibility are as follows 
+1. Download and place the program source and data source from the Flair official site according to your configuration
+2. create a Flair project at pyCharm and install the Flair-recommended version of the package by customizing the environment.
+3. install and configure CUDA for GPU use
+4. configure a pipeline to use training, inference, and metric calculation using flair-1-config.yaml
+5. flair-1-config-detect.yaml configuration settings for inferring pre-trained models at scale.
+6. flair-1-config.yaml, flair-1-config-detect.yaml: change hyperparameters* and other setting** for 5 different models, set output directory and filename, and run benchmarking.
+* hyperparameters: channels, norm_means, norm_stds, batch size, number of epochs
+** setting: model architecture, encoder name, kinds of model, channels, bands, batch size, model name, encoder, norm means, norm stds
 
+※ The distributed pre-trained models differ in their
+− dataset for training : FLAIR dataset or the increased version of this dataset FLAIR-INC (x 3.5 patches). Only the
+FLAIR dataset is open at the moment.
+− input modalities : RGB (natural colours), RGBI (natural colours + infrared), RGBIE (natural colours + infrared +
+elevation)
+− model architecture : resnet34_unet (U-Net with a Resnet-34 encoder), deeplab, fpn, mit
+− target class nomenclature : 15cl (15 land cover classes)
+Among the models that classify French forests, the representative model is "rgbie_15cl_resnet34-unet". The
+"rgbie_15cl_resnet34-unet" model is a specialized classification model for French aerial images from the BD ORTHO®
+product, designed with specific spatial and radiometric specifications. It is optimized for input images normalized to
+ 8-bit encoding per channel, with elevation information encoded in 8-bit format where each unit represents a 0.2-meter
+ elevation change. The model was trained using 218,400 patches of 512x512 pixels from the FLAIR-INC dataset,
+ incorporating 75 radiometric domains to ensure robustness against domain shifts due to acquisition time, spatial
+ domains, and radiometric processing. However, it is tailored to BD ORTHO images, and performance may drop when
+ applied to other high-resolution images without transfer learning. Land cover classes include 19 categories, but 4 classes
+ (Mixed, Ligneous, Other, Clear cut) were deactivated during training, so they should not appear in the final output. The
+ model is sensitive to spatial resolution changes and is optimized for 0.2 meters resolution, with no augmentation for
+ scale changes.
+ ##### 3.4 Computational requirements
+ The specifications of the computer that performed the reproduction are as follows. - CPU: 13th Gen Intel(R) Core(TM)
+ i9-13900 2.00 GHz - GPU: NVIDIA GeForce GTX 1660 super - Memory: 64GB - HDD: SSD - IDE: pyCharm -
+ Python library: PyTorch (segmentation models)
 
 <br>
 
