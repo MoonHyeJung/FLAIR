@@ -1,9 +1,8 @@
 <div align="center">
 
 
-# FLAIR #1 
-# Semantic segmentation and domain adaptation for land-cover from aerial imagery
-### Challenge proposed by the French National Institute of Geographical and Forest Information (IGN).
+# Reproducibility on FLAIR: a Country-Scale Land Cover Semantic Segmentation Dataset From Multi-Source Optical Imagery
+
 
 
 ![Static Badge](https://img.shields.io/badge/Code%3A-lightgrey?color=lightgrey) [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/IGNF/FLAIR-1-AI-Challenge/blob/master/LICENSE) <a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a>
