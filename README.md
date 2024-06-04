@@ -60,7 +60,7 @@ centered on the aerial image.
 
 ##### 3.3 Procedure and Hyperparameters
 The sequences of reproducibility are as follows 
-1. Download and place the program source and data source from the Flair official site according to your configuration
+1. Download and place the program source and data source from the Flair official site according to our configuration
 2. create a Flair project at pyCharm and install the Flair-recommended version of the package by customizing the environment.
 3. install and configure CUDA for GPU use
 4. configure a pipeline to use training, inference, and metric calculation using flair-1-config.yaml
@@ -89,77 +89,48 @@ Among the models that classify French forests, the representative model is "rgbi
 
 <br>
 
-
-## Baseline model 
-
-A U-Net architecture with a pre-trained ResNet34 encoder from the pytorch segmentation models library is used for the baselines. The used architecture allows integration of patch-wise metadata information and employs commonly used image data augmentation techniques. It has about 24.4M parameters and it is implemented using the _segmentation-models-pytorch_ library. The results are evaluated with an Intersection Over Union (IoU) metric and a single mIoU is reported (see associated datapaper).
-
-The _metadata_ strategy refers encoding metadata with a shallow MLP and concatenate this encoded information to the U-Net encoder output. The _augmentation_ strategy employs three typical geometrical augmentations (see associated datapaper).
-
-
-Example of a semantic segmentation of an urban and coastal area in the D076 spatial
-domain, obtained with the baseline trained model:
-
-
+### 4. Results
+##### 4.1 Results of original paper vs reproducibility
+The evaluation was performed on a TEST set that are independant from the TRAIN and VALIDATION patches. There are four performance evaluation criteria for each model: IoU, Fscore, Precision, and Recall. The results of comparing the research results of IGN and reproducibility for each of the five models are shown in Table 2.
 <p align="center">
-  <img width="100%" src="images/flair-1_predicted.png">
+  <img width="70%" src="images/result.png">
   <br>
-  <em>Example of a semantic segmentation result using the baseline model.</em>
+  <em>Table 2. IGN study results (left) vs. Reproducibility study results (right)(unit: %)</em>
 </p>
 
 
-<br>
+Overall, the performance of the models performed by IGN was similar, with an average IoU of 55.07%, an av119 erage Fscore of 67.85%, an average Precision of 69.03%, and an average Recall of 67.92%. In terms of model performance, rgbi_15cl_resnet34-unet had the highest recall at 69.41%, followed by rgb_15cl_resnet34-deeplabv3, rgbie_15cl_resnet34-unet, and rgb_15cl_resnet34-unet, and rgb_15cl_mitb5-unet had the lowest recall at 65.94%. On the other hand, the performance of the models performed by Reproducibility was on average 10% lower than
+IGN. The performance of each model was confirmed by recall in the following order: rgbi_15cl_resnet34-unet, rgb_15cl_mitb5-unet, rgbie_15cl_resnet34-unet, rgb_15cl_resnet34unet, rgb_15cl_resnet34-deeplabv3.
 
-## Pre-trained models
+##### 4.2 Performance comparison based on best model (IGN and reproducibility)
+Table 3 shows the results of running the best performing rgbi_15cl_resnet34-unet model, separated by class, to compare IGN and reproducibility.
+<p align="center">
+  <img width="70%" src="images/class2.png">
+  <br>
+  <em>Table 3. IGN and Reproducibility’s rgbi_15cl_resnet34-unet land classification predictions</em>
+</p>
 
-<b>Pre-trained models &#9889;</b> with different modalities and architectures are available as a IGNF's HuggingFace collection here : <a href="https://huggingface.co/collections/IGNF/flair-models-landcover-semantic-segmentation-65bb67415a5dbabc819a95de">huggingface.co/collections/IGNF/flair-models-landcover-semantic-segmentation</a> <br>
-See datacards for more details about each model. 
+The land was classified into 15 categories: building, pervious surface, impervious surface, bare soil, water, coniferous, deciduous, brushwood, vineyard, herbaceous vegetation, agricultural land, plowed land, swimming pool, snow, and greenhouse. The best prediction performance was for water, where both IGN and Reproducibiliy performed very well
+with average recall of 93.61% and 92.34%, respectively. The biggest performance difference is vineyard, where IGN’s recall is 89.99%, while Reproducibiliy’s recall is 46.26%.
 
-<br>
+##### 4.3 Comparison between RGBIE and UNET, labeling the actual satellite
+Figure 4 shows a comparison between RGBIE and UNET, labeling the actual satellite images and the results predicted by the learning model.
+<p align="center">
+  <img width="70%" src="images/labels.png">
+  <br>
+  <em>Table 3. IGN and Reproducibility’s rgbi_15cl_resnet34-unet land classification predictions</em>
+</p>
+Table 4. Qualitative illustration
+
+
+##### 4.4 Results beyond original paper
+Reproducibility means that 5 models, including 3 models released by NeurIPS as well as 2 models released by Flair, were reproduced. In particular, these five models are being continuously improved until May 30, 2024, so they have high potential for practical use as well as learning.
+
 
 ## Lib usage 
 
 <br><br>
 
-### Installation :pushpin:
-
-```bash
-# it's recommended to install on a conda virtual env
-conda create -n my_env_name -c conda-forge python=3.11.6
-conda activate my_env_name
-git clone git@github.com:IGNF/FLAIR-1.git
-cd FLAIR-1*
-pip install -e .
-# if torch.cuda.is_available() returns False, do the following :
-# pip install torch==2.0.0 --extra-index-url=https://download.pytorch.org/whl/cu117
-
-```
-
-<br><br>
-
-### Tasks :mag_right:
-
-This library comprises two main entry points:<br>
-
-#### :file_folder: flair
-
-The flair module is used for training, inference and metrics calculation at the patch level. To use this pipeline :
-
-```bash
-flair --conf=/my/conf/file.yaml
-```
-This will perform the tasks specified in the configuration file. If ‘train’ is enabled, it will train the model and save the trained model to the output folder. If ‘predict’ is enabled, it will load the trained model (or a specified checkpoint if ‘train’ is not enabled) and perform prediction on the test data. If ‘metrics’ is enabled, it will calculate the mean Intersection over Union (mIoU) and other IoU metrics for the predicted and ground truth masks.
-A toy dataset (reduced size) is available to check that your installation and the information in the configuration file are correct.
-Note: A notebook is available in the legacy-torch branch (which uses different libraries versions and structure) that was used during the challenge.
-
-#### :file_folder: zone_detect
-This module aims to infer a pre-trained model at a larger scale than individual patches. It allows overlapping inferences using a margin argument. Specifically, this module expects a single georeferenced TIFF file as input.
-
-```bash
-flair-detect --conf=/my/conf/file-detect.yaml
-```
-
-<br><br>
 
 ### Configuration for flair :page_facing_up:
 
